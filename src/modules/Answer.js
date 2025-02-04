@@ -1,7 +1,5 @@
-
 export class Answer {
     formElement;
-    game;
     constructor(row){
         this.formElement = this.#generateForm(row);
         document.querySelector("main").append(this.formElement);
@@ -141,8 +139,9 @@ export class Answer {
         this.formElement.addEventListener("submit", async e => {
             e.preventDefault();
             const formData = new FormData(this.formElement);
+            // const dataObject = Object.fromEntries(formData.values());
             
-
+            //Je n'arrive pas :(
             const options = {
                 method: "POST",
                 headers: {
@@ -152,13 +151,16 @@ export class Answer {
             }
 
             if (formData.values() < 5) {
-                console.log("salut")
+                this.game.displayMessage("Err")
             }else{
                 
                 const res = await fetch("https://progweb-wwwordle-api.onrender.com/guess",options)
                 const data = await res.json();
                 console.log(data)
                 return data;
+                if (data.status ==="valid") {
+                    //Pas eu le temps
+                }
             }
 
             
